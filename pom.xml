@@ -35,6 +35,7 @@
         <module>eureka-service</module>
         <module>user-service</module>
         <module>ribbon-sample</module>
+        <module>product-service</module>
     </modules>
 
     <dependencies>
