@@ -1,10 +1,12 @@
 package com.xh.sample.springcloud.product;
 
+import com.xh.sample.springcloud.product.feign.UserFeignClient;
 import org.apache.commons.lang.math.RandomUtils;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,6 +23,7 @@ import java.util.List;
  * @date: 2022-03-31 16:18
  */
 @RestController
+@EnableFeignClients
 @SpringBootApplication
 public class ProductServiceApplication {
     @Resource
@@ -28,6 +31,9 @@ public class ProductServiceApplication {
 
     @Resource
     private DiscoveryClient discoveryClient;
+
+    @Resource
+    private UserFeignClient userFeignClient;
 
     public static void main(String[] args) {
         SpringApplication.run(ProductServiceApplication.class, args);
@@ -46,5 +52,10 @@ public class ProductServiceApplication {
         String url = "http://" + serviceInstance.getHost() + ":" + serviceInstance.getPort() + "/user/" + name;
 
         return restTemplate.getForObject(url, String.class);
+    }
+
+    @GetMapping(value = "/product/user/{name}/feign")
+    public String getUserByNameFromFeign(@PathVariable String name) {
+        return userFeignClient.getByName(name);
     }
 }
