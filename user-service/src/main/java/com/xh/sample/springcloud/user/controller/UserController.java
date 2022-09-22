@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
     @Value("${server.port}")
     private int port;
+
     @GetMapping(value = "/{name}")
     public String getByName(@PathVariable String name) {
         System.out.println(port);

@@ -1,20 +1,10 @@
 package com.xh.sample.springcloud.product;
 
-import com.xh.sample.springcloud.product.feign.UserFeignClient;
-import org.apache.commons.lang.math.RandomUtils;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.client.ServiceInstance;
-import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
-
-import javax.annotation.Resource;
-import java.util.List;
 
 /**
  * Create By IntelliJ IDEA
@@ -22,19 +12,9 @@ import java.util.List;
  * @author: XieHua
  * @date: 2022-03-31 16:18
  */
-@RestController
 @EnableFeignClients
 @SpringBootApplication
 public class ProductServiceApplication {
-    @Resource
-    private RestTemplate restTemplate;
-
-    @Resource
-    private DiscoveryClient discoveryClient;
-
-    @Resource
-    private UserFeignClient userFeignClient;
-
     public static void main(String[] args) {
         SpringApplication.run(ProductServiceApplication.class, args);
     }
@@ -42,20 +22,5 @@ public class ProductServiceApplication {
     @Bean
     public RestTemplate restTemplate() {
         return new RestTemplate();
-    }
-
-    @GetMapping(value = "/product/user/{name}")
-    public String getUserByName(@PathVariable String name) {
-        List<ServiceInstance> instanceList = discoveryClient.getInstances("user-service");
-        int index = RandomUtils.nextInt(instanceList.size());
-        ServiceInstance serviceInstance = instanceList.get(index);
-        String url = "http://" + serviceInstance.getHost() + ":" + serviceInstance.getPort() + "/user/" + name;
-
-        return restTemplate.getForObject(url, String.class);
-    }
-
-    @GetMapping(value = "/product/user/{name}/feign")
-    public String getUserByNameFromFeign(@PathVariable String name) {
-        return userFeignClient.getByName(name);
     }
 }

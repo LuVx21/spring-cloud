@@ -18,7 +18,6 @@ import javax.annotation.Resource;
  * @author: XieHua
  * @date: 2021-10-19 15:44
  */
-@RestController
 @SpringBootApplication
 public class RibbonServiceBootstrap {
     public static void main(String[] args) {
@@ -29,13 +28,5 @@ public class RibbonServiceBootstrap {
     @LoadBalanced
     public RestTemplate restTemplate(RestTemplateBuilder restTemplateBuilder) {
         return restTemplateBuilder.build();
-    }
-
-    @Resource
-    private RestTemplate restTemplate;
-
-    @GetMapping(value = "/ribbon/user/{name}")
-    public String getUserByName(@PathVariable String name) {
-        return restTemplate.getForObject("http://user-service/user/" + name, String.class);
     }
 }
