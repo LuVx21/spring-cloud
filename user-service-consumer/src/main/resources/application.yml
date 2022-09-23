@@ -1,13 +1,15 @@
-#server:
-#  port: 8081
+server:
+  port: 8084
 
 spring:
   application:
-    name: user-service
+    name: user-service-consumer
 
 eureka:
   instance:
+    # 以ip的形式注册
     prefer-ip-address: true
+    # 注册的格式是ip:port
     instance-id: ${spring.cloud.client.ip-address}:${server.port}
   client:
     service-url:

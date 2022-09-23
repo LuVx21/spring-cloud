@@ -10,7 +10,7 @@
         <version>1.0</version>
     </parent>
 
-    <artifactId>user-service</artifactId>
+    <artifactId>user-service-consumer</artifactId>
 
     <dependencies>
         <dependency>

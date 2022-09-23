@@ -5,12 +5,16 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.luvx</groupId>
         <artifactId>spring-cloud-sample</artifactId>
+        <groupId>org.luvx</groupId>
         <version>1.0</version>
     </parent>
 
-    <artifactId>user-service</artifactId>
+    <artifactId>user-service-consumer-ribbon</artifactId>
+
+    <properties>
+        <spring-cloud-ribbon.version>2.2.9.RELEASE</spring-cloud-ribbon.version>
+    </properties>
 
     <dependencies>
         <dependency>
@@ -20,12 +24,8 @@
 
         <dependency>
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-openfeign</artifactId>
+            <artifactId>spring-cloud-starter-netflix-ribbon</artifactId>
+            <version>${spring-cloud-ribbon.version}</version>
         </dependency>
     </dependencies>
 </project>
