@@ -1,5 +1,7 @@
 package org.luvx.cloud.feign.controller;
 
+import static org.luvx.cloud.feign.consts.ServiceHolder.USER_SERVICE;
+
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -27,15 +29,13 @@ public class IndexController {
 
     @GetMapping(value = "/product/user/{name}")
     public String getUserByName(@PathVariable String name) {
-        String serviceId = "user-service";
-
         // 1
         // List<ServiceInstance> instanceList = discoveryClient.getInstances(serviceId);
         // int index = RandomUtils.nextInt(instanceList.size());
         // ServiceInstance serviceInstance = instanceList.get(index);
 
         // 2
-        ServiceInstance serviceInstance = loadBalancerClient.choose(serviceId);
+        ServiceInstance serviceInstance = loadBalancerClient.choose(USER_SERVICE);
 
         String url = "http://" + serviceInstance.getHost() + ":" + serviceInstance.getPort() + "/user/" + name;
 

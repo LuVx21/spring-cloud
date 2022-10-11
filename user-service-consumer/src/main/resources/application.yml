@@ -15,8 +15,64 @@ eureka:
     service-url:
       defaultZone: http://localhost:8080/eureka/
 
+logging:
+  level:
+    org.luvx.cloud.feign.client: debug
+
+feign:
+  client:
+    config:
+      default:
+        connect-timeout: 2000
+        read-timeout: 5000
+
 management:
   endpoints:
     web:
       exposure:
         include: "*"
+
+# Aop式 Retry
+resilience4j.retry:
+  retryAspectOrder: 399
+  backends:
+    retryBackendA:
+      max-attempts: 3
+      wait-duration: 600
+      eventConsumerBufferSize: 1
+      enableExponentialBackoff: true
+      exponentialBackoffMultiplier: 2
+      enableRandomizedWait: false
+      randomizedWaitFactor: 2
+      retryExceptionPredicate: org.luvx.cloud.feign.other.RecordFailurePredicate
+      retryExceptions:
+        - java.io.IOException
+      ignoreExceptions:
+        - org.luvx.cloud.feign.other.IgnoredException
+
+# Aop式 CircuitBreaker
+resilience4j.circuitbreaker:
+  backends:
+    backendA:
+      ringBufferSizeInClosedState: 5
+      ringBufferSizeInHalfOpenState: 3
+#      waitInterval: 5000
+      failureRateThreshold: 50
+      eventConsumerBufferSize: 10
+      registerHealthIndicator: true
+      recordFailurePredicate: org.luvx.cloud.feign.other.RecordFailurePredicate
+      recordExceptions:
+        - org.springframework.web.client.HttpServerErrorException
+      ignoreExceptions:
+        - org.springframework.web.client.HttpClientErrorException
+
+#Aop 式限流
+resilience4j.ratelimiter:
+  limiters:
+    backendA:
+      limitForPeriod: 1
+#      limitRefreshPeriodInMillis: 5000
+#      timeoutInMillis: 5000
+      subscribeForEvents: true
+      registerHealthIndicator: true
+      eventConsumerBufferSize: 100

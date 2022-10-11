@@ -13,7 +13,6 @@
     <artifactId>user-service-consumer-ribbon</artifactId>
 
     <properties>
-        <spring-cloud-ribbon.version>2.2.9.RELEASE</spring-cloud-ribbon.version>
     </properties>
 
     <dependencies>
@@ -22,12 +21,12 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
-        <!-- 3.0版本的已经内置ribbon-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
         </dependency>
 
+<!--        进入维护期-->
 <!--        <dependency>-->
 <!--            <groupId>org.springframework.cloud</groupId>-->
 <!--            <artifactId>spring-cloud-starter-netflix-ribbon</artifactId>-->

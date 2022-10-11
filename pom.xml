@@ -24,6 +24,8 @@
     <properties>
         <java.version>17</java.version>
         <spring-cloud.version>2021.0.4</spring-cloud.version>
+        <spring-cloud-ribbon.version>2.2.10.RELEASE</spring-cloud-ribbon.version>
+        <spring-cloud-hystrix.version>2.2.10.RELEASE</spring-cloud-hystrix.version>
     </properties>
 
     <modules>
