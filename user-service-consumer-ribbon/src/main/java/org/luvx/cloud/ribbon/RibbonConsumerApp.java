@@ -6,8 +6,8 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 @EnableDiscoveryClient
 @SpringBootApplication
-public class RibbonServiceApp {
+public class RibbonConsumerApp {
     public static void main(String[] args) {
-        SpringApplication.run(RibbonServiceApp.class, args);
+        SpringApplication.run(RibbonConsumerApp.class, args);
     }
 }
