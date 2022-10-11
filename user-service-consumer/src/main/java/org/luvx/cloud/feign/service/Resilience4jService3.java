@@ -14,25 +14,25 @@ import io.github.resilience4j.ratelimiter.RateLimiterRegistry;
 import io.vavr.control.Try;
 
 @Service
-//@RateLimiter(name = "backendA")
-public class HelloServiceRateLimiter {
+@io.github.resilience4j.ratelimiter.annotation.RateLimiter(name = "backendA")
+public class Resilience4jService3 {
     @Resource
     private UserFeignClient userFeignClient;
 
-    public String hello(String name) {
-        return userFeignClient.getByNameException(true);
+    public String rl1(String name) {
+        return userFeignClient.getByName(name);
     }
 
-    public void hello2(String name) {
+    public void rl2(String name) {
         RateLimiterConfig config = RateLimiterConfig.custom()
-                .limitRefreshPeriod(Duration.ofMillis(1000))
                 .limitForPeriod(1)
-                .timeoutDuration(Duration.ofMillis(6000))
+                .limitRefreshPeriod(Duration.ofSeconds(5))
+                .timeoutDuration(Duration.ofSeconds(6))
                 .build();
         RateLimiterRegistry rateLimiterRegistry = RateLimiterRegistry.of(config);
         RateLimiter rateLimiter = RateLimiter.of("backendB", config);
         Supplier<String> supplier = RateLimiter.decorateSupplier(
-                rateLimiter, () -> userFeignClient.getByNameException(true)
+                rateLimiter, () -> userFeignClient.getByName(name)
         );
         for (int i = 0; i < 5; i++) {
             Try<String> result = Try.ofSupplier(supplier);

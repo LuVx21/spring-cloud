@@ -37,7 +37,7 @@ public class UserController {
 
     @GetMapping(value = "/name/exception")
     public Object getByNameException(boolean exception) {
-        if (!exception) {
+        if (exception) {
             throw new RuntimeException();
         }
         return List.of(port, LocalDateTime.now(), discoveryClient.getServices());

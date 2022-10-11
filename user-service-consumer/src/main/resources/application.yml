@@ -71,8 +71,8 @@ resilience4j.ratelimiter:
   limiters:
     backendA:
       limitForPeriod: 1
-#      limitRefreshPeriodInMillis: 5000
-#      timeoutInMillis: 5000
+      limit-refresh-period: 5s
+      timeout-duration: 6s
       subscribeForEvents: true
       registerHealthIndicator: true
       eventConsumerBufferSize: 100

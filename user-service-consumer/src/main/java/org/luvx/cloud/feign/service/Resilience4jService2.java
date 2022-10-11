@@ -10,35 +10,35 @@ import org.springframework.stereotype.Service;
 
 import io.github.resilience4j.circuitbreaker.CircuitBreaker;
 import io.github.resilience4j.circuitbreaker.CircuitBreakerConfig;
+import io.github.resilience4j.circuitbreaker.CircuitBreakerConfig.SlidingWindowType;
 import io.github.resilience4j.circuitbreaker.CircuitBreakerRegistry;
 import io.vavr.control.Try;
 
 @Service
-//@CircuitBreaker(name = "backendA")
-public class HelloServiceCircuitBreaker {
+// @io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker(name = "backendA")
+public class Resilience4jService2 {
     @Resource
     private UserFeignClient        userFeignClient;
     @Autowired
     private CircuitBreakerRegistry circuitBreakerRegistry;
 
-    public String hello(String name) {
-        return userFeignClient.getByNameException(true);
+    public String breaker1(boolean exception) {
+        return userFeignClient.getByNameException(exception);
     }
 
-    public String hello2(String name) {
+    public String breaker2(boolean exception) {
         CircuitBreakerConfig circuitBreakerConfig = CircuitBreakerConfig.custom()
                 .failureRateThreshold(50)
-                .waitDurationInOpenState(Duration.ofMillis(1000))
-                .ringBufferSizeInHalfOpenState(20)
-                .ringBufferSizeInClosedState(20)
+                .waitDurationInOpenState(Duration.ofSeconds(1))
+                .slidingWindow(5, 5, SlidingWindowType.COUNT_BASED)
+                .permittedNumberOfCallsInHalfOpenState(3)
                 .build();
         CircuitBreaker circuitBreaker =
                 circuitBreakerRegistry.circuitBreaker("backendA", circuitBreakerConfig);
         Try<String> result = Try.ofSupplier(CircuitBreaker.decorateSupplier(
-                        circuitBreaker, () -> userFeignClient.getByNameException(true)
+                        circuitBreaker, () -> userFeignClient.getByNameException(exception)
                 ))
                 .recover(Exception.class, "有异常，访问失败！");
-
         return result.get();
     }
 }

@@ -9,12 +9,12 @@ import io.github.resilience4j.retry.annotation.Retry;
 
 @Service
 @Retry(name = "retryBackendA")
-public class HelloService {
+public class Resilience4jService1 {
 
     @Resource
     private UserFeignClient userFeignClient;
 
-    public String hello(String name) {
-        return userFeignClient.getByNameException(true);
+    public String retry(boolean exception) {
+        return userFeignClient.getByNameException(exception);
     }
 }
