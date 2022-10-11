@@ -1,0 +1,35 @@
+server:
+  port: 8085
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+spring:
+  application:
+    name: gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true          # 默认true:默认开启从注册中心动态创建路由的功能，利用微服务名进行路由
+      routes:
+        - id: user-service       # 要求唯一, 建议与服务名对应
+          uri: lb://user-service # 匹配后提供服务的路由地址
+          predicates:
+            - Path=/user/**      # 路径匹配,P 为大写
+            - Method=GET
+          filters:
+            - AddRequestParameter=X-Request-Id,foobar
+
+eureka:
+  instance:
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
+    hostname: micro-service-cloud-gateway
+    prefer-ip-address: true
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://localhost:8080/eureka/

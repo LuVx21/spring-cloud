@@ -33,6 +33,7 @@
         <module>user-service</module>
         <module>user-service-consumer-ribbon</module>
         <module>user-service-consumer</module>
+        <module>gateway</module>
     </modules>
 
     <dependencies>
