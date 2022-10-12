@@ -34,6 +34,8 @@
         <module>user-service-consumer-ribbon</module>
         <module>user-service-consumer</module>
         <module>gateway</module>
+        <module>config-server</module>
+        <module>config-client</module>
     </modules>
 
     <dependencies>

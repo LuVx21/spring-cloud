@@ -1,0 +1,24 @@
+server:
+  port: 8087
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+spring:
+  application:
+    name: config-client
+  profiles:
+    active: dev
+  cloud:
+    config:
+      uri: http://localhost:8086
+      label: master       # 分支名称
+      name: ${spring.application.name}  # 配置文件名称
+      profile: ${spring.profiles.active}        # 环境
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8080/eureka/
