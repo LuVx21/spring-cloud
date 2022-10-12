@@ -1,0 +1,20 @@
+server:
+  port: 8087
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+spring:
+  application:
+    name: config-client-ali
+  profiles:
+    active: dev
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:58848
+      config:
+        server-addr: localhost:58848
+        file-extension: yaml

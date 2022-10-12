@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.luvx</groupId>
+        <artifactId>spring-cloud-parent</artifactId>
+        <version>0.1</version>
+    </parent>
+
+    <artifactId>spring-cloud-native</artifactId>
+    <packaging>pom</packaging>
+
+    <properties>
+        <java.version>17</java.version>
+        <spring-cloud.version>2021.0.4</spring-cloud.version>
+        <spring-cloud-ribbon.version>2.2.10.RELEASE</spring-cloud-ribbon.version>
+        <spring-cloud-hystrix.version>2.2.10.RELEASE</spring-cloud-hystrix.version>
+    </properties>
+
+    <modules>
+        <module>eureka-service</module>
+        <module>user-service</module>
+        <module>user-service-consumer</module>
+        <module>gateway</module>
+        <module>config-server</module>
+        <module>config-client</module>
+        <module>cloud-stream</module>
+    </modules>
+
+    <dependencies>
+    </dependencies>
+
+    <dependencyManagement>
+    </dependencyManagement>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+</project>

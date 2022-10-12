@@ -1,0 +1,28 @@
+server:
+  port: 8086
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+spring:
+  application:
+    name: config-server
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://gitee.com/LuVx/spring-cloud.git
+          search-paths:
+            - spring-cloud-native
+          force-pull: true
+          # username:
+          # password:
+          default-label: master
+#      label: master
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8080/eureka/
