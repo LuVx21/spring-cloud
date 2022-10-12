@@ -36,6 +36,7 @@
         <module>gateway</module>
         <module>config-server</module>
         <module>config-client</module>
+        <module>cloud-stream</module>
     </modules>
 
     <dependencies>
