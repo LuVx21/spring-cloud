@@ -4,6 +4,7 @@ import static org.luvx.cloud.feign.consts.ServiceHolder.USER_SERVICE;
 
 import javax.annotation.Resource;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.reactive.function.client.WebClient;
 
 @RestController
 public class IndexController {
@@ -21,6 +23,8 @@ public class IndexController {
     @Resource
     @Qualifier("restTemplateLoadBalanced")
     private RestTemplate       restTemplateLoadBalanced;
+    @Resource
+    private WebClient.Builder  webClientBuilder;
 
     @GetMapping(value = "/product/user/{name}")
     public String getUserByName(@PathVariable String name) {
@@ -33,7 +37,18 @@ public class IndexController {
 
     @GetMapping(value = "/ribbon/user/{name}")
     public String getUserByName1(@PathVariable String name) {
-        String serviceId = "user-service-ali";
-        return restTemplateLoadBalanced.getForObject("http://" + serviceId + "/user/" + name, String.class);
+        String url = "http://" + USER_SERVICE + "/user/" + name;
+        return restTemplateLoadBalanced.getForObject(url, String.class);
+    }
+
+    @GetMapping(value = "/webflux/user/{name}")
+    public String getUserByName2(@PathVariable String name) {
+        String url = "http://" + USER_SERVICE + "/user/" + name;
+        return webClientBuilder.build()
+                .get()
+                .uri(url)
+                .retrieve()
+                .bodyToMono(String.class)
+                .block();
     }
 }
