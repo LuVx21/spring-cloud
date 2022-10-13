@@ -45,8 +45,8 @@ public class IndexController {
 
     @GetMapping(value = "/ribbon/user/{name}")
     public String getUserByName1(@PathVariable String name) {
-        String serviceId = "user-service";
-        return restTemplateLoadBalanced.getForObject("http://" + serviceId + "/user/" + name, String.class);
+        String url = "http://" + USER_SERVICE + "/user/" + name;
+        return restTemplateLoadBalanced.getForObject(url, String.class);
     }
 
     @GetMapping(value = "/product/user/{name}/feign")
