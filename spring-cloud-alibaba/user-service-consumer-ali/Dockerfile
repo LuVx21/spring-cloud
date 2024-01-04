@@ -1,6 +1,6 @@
 FROM openjdk:21-slim
 WORKDIR /app
-ADD target/user-service-consumer-ali-0.1.jar app.jar
+ADD ./user-service-consumer-ali/target/user-service-consumer-ali-0.1.jar app.jar
 ENV JAVA_OPTS="\
 -server \
 -Xms256m \

@@ -1,9 +1,11 @@
-package org.luvx.cloud.feign;
+package org.luvx.boot.cloud.feign;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.context.annotation.ComponentScan;
 
+@ComponentScan({"org.luvx.boot"})
 @EnableDiscoveryClient
 @SpringBootApplication
 public class UserServiceConsumerAliApp {

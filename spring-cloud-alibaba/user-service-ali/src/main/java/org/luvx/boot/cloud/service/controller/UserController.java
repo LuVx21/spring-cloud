@@ -1,4 +1,4 @@
-package org.luvx.cloud.service.controller;
+package org.luvx.boot.cloud.service.controller;
 
 import java.time.LocalDateTime;
 import java.util.List;

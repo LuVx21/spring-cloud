@@ -1,4 +1,4 @@
-package org.luvx.cloud.config.controller;
+package org.luvx.boot.cloud.config.controller;
 
 import com.google.common.collect.ImmutableMap;
 import org.springframework.beans.factory.annotation.Value;

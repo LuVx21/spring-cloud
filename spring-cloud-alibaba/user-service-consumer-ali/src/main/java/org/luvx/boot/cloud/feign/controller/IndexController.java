@@ -1,6 +1,6 @@
-package org.luvx.cloud.feign.controller;
+package org.luvx.boot.cloud.feign.controller;
 
-import static org.luvx.cloud.feign.consts.ServiceHolder.USER_SERVICE;
+import static org.luvx.boot.cloud.feign.consts.ServiceHolder.USER_SERVICE;
 
 import javax.annotation.Resource;
 

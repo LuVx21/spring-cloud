@@ -1,4 +1,4 @@
-package org.luvx.cloud.feign.config;
+package org.luvx.boot.cloud.feign.config;
 
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;

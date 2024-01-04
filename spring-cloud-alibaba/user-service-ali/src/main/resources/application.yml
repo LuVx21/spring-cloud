@@ -15,4 +15,4 @@ spring:
       enabled: false
     nacos:
       discovery:
-        server-addr: localhost:8848
+        server-addr: ${NACOS_SERVER:localhost}:8848
