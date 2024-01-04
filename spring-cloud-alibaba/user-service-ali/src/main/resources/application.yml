@@ -11,6 +11,8 @@ spring:
   application:
     name: user-service-ali
   cloud:
+    compatibility-verifier:
+      enabled: false
     nacos:
       discovery:
-        server-addr: localhost:58848
+        server-addr: localhost:8848

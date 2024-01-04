@@ -26,14 +26,14 @@ public class IndexController {
     public String getUserByName(@PathVariable String name) {
         ServiceInstance serviceInstance = loadBalancerClient.choose(USER_SERVICE);
 
-        String url = "http://" + serviceInstance.getHost() + ":" + serviceInstance.getPort() + "/user/" + name;
+        String url = STR."http://\{serviceInstance.getHost()}:\{serviceInstance.getPort()}/user/\{name}";
 
         return restTemplate.getForObject(url, String.class);
     }
 
     @GetMapping(value = "/ribbon/user/{name}")
     public String getUserByName1(@PathVariable String name) {
-        String url = "http://" + USER_SERVICE + "/user/" + name;
+        String url = STR."http://\{USER_SERVICE}/user/\{name}";
         return restTemplateLoadBalanced.getForObject(url, String.class);
     }
 }
