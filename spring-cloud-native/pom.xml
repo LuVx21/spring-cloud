@@ -6,18 +6,17 @@
 
     <parent>
         <groupId>org.luvx.boot</groupId>
-        <artifactId>spring-cloud-parent</artifactId>
-        <version>0.1</version>
+        <artifactId>coding-parent-boot-java</artifactId>
+        <version>0.3</version>
     </parent>
 
     <artifactId>spring-cloud-native</artifactId>
+    <version>0.1</version>
     <packaging>pom</packaging>
 
     <properties>
-        <java.version>17</java.version>
-        <spring-cloud.version>2021.0.4</spring-cloud.version>
-        <spring-cloud-ribbon.version>2.2.10.RELEASE</spring-cloud-ribbon.version>
-        <spring-cloud-hystrix.version>2.2.10.RELEASE</spring-cloud-hystrix.version>
+        <!-- 3.2 -->
+        <spring-cloud.version>2023.0.0</spring-cloud.version>
     </properties>
 
     <modules>
@@ -34,14 +33,17 @@
     </dependencies>
 
     <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
     </dependencyManagement>
 
     <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
     </build>
 </project>
