@@ -14,6 +14,15 @@ services:
 #    extra_hosts:
 #      - luvx:127.0.0.1
 
+  user-service-ali-1:
+    image: F.LuVx/user-service-ali:latest
+    container_name: user-service-ali-1
+    network_mode: net_common
+    ports:
+      - "18081:8081"
+    environment:
+      - NACOS_SERVER=nacos1
+
   user-service-consumer-ali:
     image: F.LuVx/user-service-consumer-ali:latest
     container_name: user-service-consumer-ali

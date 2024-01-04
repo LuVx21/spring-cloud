@@ -8,6 +8,9 @@ import org.springframework.web.client.RestTemplate;
 
 @Configuration
 public class Config {
+    /**
+     * 不加负载均衡, 试用下LoadBalancerClient
+     */
     @Bean
     public RestTemplate restTemplate() {
         return new RestTemplate();

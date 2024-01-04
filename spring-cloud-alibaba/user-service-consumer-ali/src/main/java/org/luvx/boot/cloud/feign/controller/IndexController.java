@@ -4,6 +4,7 @@ import static org.luvx.boot.cloud.feign.consts.ServiceHolder.USER_SERVICE;
 
 import javax.annotation.Resource;
 
+import org.luvx.boot.cloud.feign.service.UserServiceClient;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
@@ -21,19 +22,26 @@ public class IndexController {
     @Resource
     @Qualifier("restTemplateLoadBalanced")
     private RestTemplate       restTemplateLoadBalanced;
+    @Resource
+    private UserServiceClient  userServiceClient;
 
-    @GetMapping(value = "/product/user/{name}")
-    public String getUserByName(@PathVariable String name) {
+    @GetMapping(value = "/user/v1/{name}")
+    public Object getUserByName(@PathVariable String name) {
         ServiceInstance serviceInstance = loadBalancerClient.choose(USER_SERVICE);
 
         String url = STR."http://\{serviceInstance.getHost()}:\{serviceInstance.getPort()}/user/\{name}";
 
-        return restTemplate.getForObject(url, String.class);
+        return restTemplate.getForObject(url, Object.class);
     }
 
-    @GetMapping(value = "/ribbon/user/{name}")
-    public String getUserByName1(@PathVariable String name) {
+    @GetMapping(value = "/user/v2/{name}")
+    public Object getUserByName1(@PathVariable String name) {
         String url = STR."http://\{USER_SERVICE}/user/\{name}";
-        return restTemplateLoadBalanced.getForObject(url, String.class);
+        return restTemplateLoadBalanced.getForObject(url, Object.class);
+    }
+
+    @GetMapping(value = "/user/v3/{name}")
+    public Object getByName(@PathVariable String name) {
+        return userServiceClient.getByName(name);
     }
 }
