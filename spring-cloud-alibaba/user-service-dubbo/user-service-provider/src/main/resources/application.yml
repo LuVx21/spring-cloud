@@ -1,6 +1,3 @@
-server:
-  port: 8082
-
 management:
   endpoints:
     web:
@@ -9,7 +6,7 @@ management:
 
 spring:
   application:
-    name: user-service-consumer-ali
+    name: user-service-provider
   cloud:
     compatibility-verifier:
       enabled: false
@@ -21,14 +18,14 @@ dubbo:
   application:
     name: ${spring.application.name}
   registry:
+    # register-mode: interface
     address: nacos://${NACOS_SERVER:localhost}:8848
     # username: nacos
     # password: nacos
     group: DEFAULT_GROUP
+    parameters:
+      register-consumer-url: true # 注册接口级消费者
 
 #  protocol:
 #    name: dubbo
 #    port: -1
-
-service-url:
-  nacos-user-service: http://user-service-ali

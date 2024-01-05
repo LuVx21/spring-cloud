@@ -1,6 +1,6 @@
 FROM openjdk:21-slim
 WORKDIR /app
-ADD ./user-service-ali/target/user-service-ali-0.1.jar app.jar
+ADD ./user-service-dubbo/user-service-provider/target/user-service-provider-0.1.jar app.jar
 ENV JAVA_OPTS="\
 -server \
 -Xms128m \
@@ -9,5 +9,4 @@ ENV JAVA_OPTS="\
 -XX:MaxMetaspaceSize=256m \
 --enable-preview"
 ENV PARAMS=""
-EXPOSE 8080
 ENTRYPOINT ["sh","-c","java -jar $JAVA_OPTS app.jar $PARAMS"]

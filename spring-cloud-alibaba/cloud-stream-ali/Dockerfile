@@ -3,10 +3,10 @@ WORKDIR /app
 ADD ./cloud-stream-ali/target/cloud-stream-ali-0.1.jar app.jar
 ENV JAVA_OPTS="\
 -server \
--Xms256m \
--Xmx512m \
--XX:MetaspaceSize=256m \
--XX:MaxMetaspaceSize=512m \
+-Xms128m \
+-Xmx256m \
+-XX:MetaspaceSize=128m \
+-XX:MaxMetaspaceSize=256m \
 --enable-preview"
 ENV PARAMS=""
 EXPOSE 8080
