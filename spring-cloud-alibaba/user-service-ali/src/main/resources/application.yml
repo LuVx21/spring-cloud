@@ -16,3 +16,26 @@ spring:
     nacos:
       discovery:
         server-addr: ${NACOS_SERVER:localhost}:8848
+    stream:
+      rocketmq:
+        binder:
+          name-server: ${ROCKETMQ_SERVER:localhost}:9876
+        bindings:
+          producer-out-0:
+            producer:
+              group: output_1
+          consumer-in-0:
+            consumer:
+              messageModel: BROADCASTING
+      bindings:
+        producer-out-0:
+          destination: broadcast
+        consumer-in-0:
+          destination: broadcast
+          group: broadcast-consumer
+      function:
+        definition: consumer;
+
+logging:
+  level:
+    org.springframework.context.support: debug

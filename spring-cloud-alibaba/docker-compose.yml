@@ -1,40 +1,48 @@
 version: '3'
 services:
-  user-service-ali:
+  user-service-ali-0:
     image: F.LuVx/user-service-ali:latest
-    container_name: user-service-ali
-    network_mode: net_common
+    container_name: user-service-ali-0
+    networks:
+      - net_common
     build:
       dockerfile: ./user-service-ali/Dockerfile
       context: ./
     ports:
       - "8081:8081"
-    environment:
-      - NACOS_SERVER=nacos1
+    env_file:
+      - ./env.env
 #    extra_hosts:
 #      - luvx:127.0.0.1
 
   user-service-ali-1:
     image: F.LuVx/user-service-ali:latest
     container_name: user-service-ali-1
-    network_mode: net_common
+    networks:
+      - net_common
     ports:
       - "18081:8081"
-    environment:
-      - NACOS_SERVER=nacos1
+    env_file:
+      - ./env.env
 
   user-service-consumer-ali:
     image: F.LuVx/user-service-consumer-ali:latest
     container_name: user-service-consumer-ali
-    network_mode: net_common
+    networks:
+      - net_common
     build:
       dockerfile: ./user-service-consumer-ali/Dockerfile
       context: ./
     ports:
       - "8082:8082"
-    environment:
-      - NACOS_SERVER=nacos1
+    env_file:
+      - ./env.env
     depends_on:
-      - user-service-ali
+      - user-service-ali-0
+      - user-service-ali-1
 #    extra_hosts:
 #      - luvx:127.0.0.1
+
+networks:
+  net_common:
+    external: true

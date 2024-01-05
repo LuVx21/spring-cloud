@@ -26,6 +26,7 @@
         <module>user-service-ali</module>
         <module>user-service-consumer-ali</module>
         <module>config-client-ali</module>
+        <!--<module>cloud-stream-ali</module>-->
     </modules>
 
     <dependencies>

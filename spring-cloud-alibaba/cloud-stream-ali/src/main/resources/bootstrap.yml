@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 8090
 management:
   endpoints:
     web:
@@ -8,15 +8,10 @@ management:
 
 spring:
   application:
-    name: config-client-ali
-  profiles:
-    active: dev
+    name: cloud-stream-ali
   cloud:
     compatibility-verifier:
       enabled: false
     nacos:
       discovery:
         server-addr: ${NACOS_SERVER:localhost}:8848
-      config:
-        server-addr: ${NACOS_SERVER:localhost}:8848
-        file-extension: yaml

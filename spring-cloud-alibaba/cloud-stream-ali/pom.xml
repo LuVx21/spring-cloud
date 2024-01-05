@@ -10,7 +10,7 @@
         <version>0.1</version>
     </parent>
 
-    <artifactId>user-service-ali</artifactId>
+    <artifactId>cloud-stream-ali</artifactId>
 
     <dependencies>
         <dependency>
@@ -21,11 +21,6 @@
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-stream-rocketmq</artifactId>
         </dependency>
     </dependencies>
 

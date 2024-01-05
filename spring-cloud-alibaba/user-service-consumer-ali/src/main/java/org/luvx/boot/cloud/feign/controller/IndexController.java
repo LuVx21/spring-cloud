@@ -5,6 +5,7 @@ import static org.luvx.boot.cloud.feign.consts.ServiceHolder.USER_SERVICE;
 import javax.annotation.Resource;
 
 import org.luvx.boot.cloud.feign.service.UserServiceClient;
+import org.luvx.boot.web.response.R;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
@@ -31,17 +32,20 @@ public class IndexController {
 
         String url = STR."http://\{serviceInstance.getHost()}:\{serviceInstance.getPort()}/user/\{name}";
 
-        return restTemplate.getForObject(url, Object.class);
+        Object o = restTemplate.getForObject(url, Object.class);
+        return R.success(o);
     }
 
     @GetMapping(value = "/user/v2/{name}")
     public Object getUserByName1(@PathVariable String name) {
         String url = STR."http://\{USER_SERVICE}/user/\{name}";
-        return restTemplateLoadBalanced.getForObject(url, Object.class);
+        Object o = restTemplateLoadBalanced.getForObject(url, Object.class);
+        return R.success(o);
     }
 
     @GetMapping(value = "/user/v3/{name}")
     public Object getByName(@PathVariable String name) {
-        return userServiceClient.getByName(name);
+        Object o = userServiceClient.getByName(name);
+        return R.success(o);
     }
 }
